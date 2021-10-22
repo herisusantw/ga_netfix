@@ -16,8 +16,12 @@ const App = () => {
         placeholder="Input your email..."
         onChangeText={text => setEmail(text)}
       />
-      <Text>{email}</Text>
-      <TextInput value={password} />
+      <TextInput
+        style={{borderWidth: 1, borderColor: 'grey'}}
+        value={password}
+        placeholder="Input your password..."
+        onChangeText={text => setPassword(text)}
+      />
     </View>
   );
 };
