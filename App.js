@@ -22,6 +22,12 @@ const App = () => {
         placeholder="Input your password..."
         onChangeText={text => setPassword(text)}
       />
+      <TextInput
+        style={{borderWidth: 1, borderColor: 'grey'}}
+        value={password}
+        placeholder="Input your confirm password..."
+        onChangeText={text => setPassword(text)}
+      />
     </View>
   );
 };
