@@ -6,8 +6,6 @@ import CustomTextInput from '../components/CustomTextinput';
 
 const Register = props => {
   const navigation = useNavigation();
-  console.log('props:', props);
-  const {greeting} = props.route.params;
   const [userName, setUserName] = useState('');
   const [password, setPassword] = React.useState('');
   const [confirmedPassword, setConfirmedPassword] = React.useState('');
@@ -15,9 +13,6 @@ const Register = props => {
   return (
     <View
       style={{justifyContent: 'center', flex: 1, width: '100%', padding: 15}}>
-      <Text style={{fontSize: 18, fontWeight: 'bold', textAlign: 'center'}}>
-        {greeting}
-      </Text>
       <CustomTextInput
         label="Username"
         placeholder="Please input your username!"

@@ -34,10 +34,10 @@ const Login = props => {
         secureTextEntry={true}
       />
       <CustomButton
-        title="Register"
+        title="MainTab"
         isActive={true}
         onPressButton={() =>
-          navigation.navigate('Register', {
+          navigation.navigate('MainTab', {
             greeting: `Hello, ${userName}`,
           })
         }
