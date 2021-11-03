@@ -8,6 +8,7 @@ import Home from './Home';
 import Download from './Download';
 import Reviews from './Reviews';
 import ComingSoon from './ComingSoon';
+import DetailMovie from './DetailMovie';
 
 const HomeStack = createNativeStackNavigator();
 const DownloadStack = createNativeStackNavigator();
@@ -19,6 +20,7 @@ const Tab = createBottomTabNavigator();
 const HomeStackScreen = () => (
   <HomeStack.Navigator screenOptions={{headerShown: false}}>
     <HomeStack.Screen name="Home" component={Home} />
+    <HomeStack.Screen name="Detail Movie" component={DetailMovie} />
   </HomeStack.Navigator>
 );
 

@@ -1,46 +1,50 @@
 import React, {useState} from 'react';
-import {useNavigation} from '@react-navigation/core';
-import {Text, View} from 'react-native';
+import {View, StyleSheet, Text, Image, TextInput, Button} from 'react-native';
+import {color, style} from '../styles/default';
 import CustomButton from '../components/CustomButton';
-import CustomTextInput from '../components/CustomTextinput';
+import AntDesign from 'react-native-vector-icons/AntDesign';
+import styles from '../styles/register';
+import CustomTextInput from '../components/CustomTextInput';
 
 const Register = props => {
-  const navigation = useNavigation();
-  const [userName, setUserName] = useState('');
-  const [password, setPassword] = React.useState('');
-  const [confirmedPassword, setConfirmedPassword] = React.useState('');
-
   return (
-    <View
-      style={{justifyContent: 'center', flex: 1, width: '100%', padding: 15}}>
-      <CustomTextInput
-        label="Username"
-        placeholder="Please input your username!"
-        value={userName}
-        onChangeText={text => setUserName(text)}
-        secureTextEntry={false}
+    <View style={styles.container}>
+      <Image
+        source={require('../assets/netflix_logo.png')}
+        style={styles.logo}
       />
-      <CustomTextInput
-        label="Password"
-        placeholder="Please input your password!"
-        value={password}
-        onChangeText={text => setPassword(text)}
-        secureTextEntry={true}
-      />
-      <CustomTextInput
-        label="Confirm Password"
-        placeholder="Please input your password!"
-        value={confirmedPassword}
-        onChangeText={text => setConfirmedPassword(text)}
-        secureTextEntry={true}
-      />
-      <CustomButton
-        title="Sign Up"
-        isActive={false}
-        onPressButton={() => navigation.goBack()}
-      />
+      {/* <Text style={styles.signIn}>Sign Up</Text> */}
+      <View style={styles.subContainer}>
+        <CustomTextInput label="Username" placeholder="Input your username." />
+        <CustomTextInput label="Password" placeholder="Input your password." />
+        <CustomTextInput
+          label="Confirm Password"
+          placeholder="Confirm your password."
+        />
+      </View>
+      <View style={styles.buttonContainer}>
+        <CustomButton title="Register" isActive={true} />
+        <View style={styles.underBtnContainer}>
+          <View
+            onPress={() => props.navigation.navigate('Login')}
+            style={{
+              flexDirection: 'row',
+              justifyContent: 'space-between',
+              alignItems: 'center',
+            }}>
+            <AntDesign
+              name="left"
+              size={20}
+              color={color.white}
+              style={{marginRight: 5}}
+            />
+            <Text style={styles.underBtnText}>Back</Text>
+          </View>
+
+          <Text style={styles.underBtnText}>Need help ?</Text>
+        </View>
+      </View>
     </View>
   );
 };
-
 export default Register;

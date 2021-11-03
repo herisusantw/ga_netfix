@@ -6,11 +6,14 @@ const CustomTextInput = props => {
   const [isOpen, setIsOpen] = React.useState(true);
 
   return (
-    <View style={{marginVertical: 15}}>
-      <Text style={{marginVertical: 10, fontSize: 18}}>{props.label}</Text>
+    <View style={{marginVertical: 5}}>
+      <Text style={{marginVertical: 10, fontSize: 18, color: 'white'}}>
+        {props.label}
+      </Text>
       <TextInput
         value={props.value}
         placeholder={props.placeholder}
+        placeholderTextColor="white"
         style={{
           width: '100%',
           borderWidth: 0.5,

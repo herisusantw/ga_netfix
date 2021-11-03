@@ -17,10 +17,10 @@ const styles = StyleSheet.create({
     resizeMode: 'cover',
   },
   signIn: {
-    fontSize: 45,
+    fontSize: 36,
     fontWeight: 'bold',
     color: color.white,
-    marginBottom: 25,
+    marginBottom: 15,
   },
   input: {
     backgroundColor: color.darkGrey,

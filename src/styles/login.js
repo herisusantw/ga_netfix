@@ -17,10 +17,10 @@ const styles = StyleSheet.create({
     resizeMode: 'cover',
   },
   signIn: {
-    fontSize: 45,
+    fontSize: 36,
     fontWeight: 'bold',
     color: color.white,
-    marginBottom: 25,
+    marginBottom: 15,
   },
   input: {
     backgroundColor: color.darkGrey,
@@ -42,7 +42,7 @@ const styles = StyleSheet.create({
     marginVertical: 30,
   },
   bottomContainer: {
-    marginTop: 50,
+    // marginTop: 50,
     justifyContent: 'flex-start',
   },
   loginFb: {
