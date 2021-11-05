@@ -6,12 +6,13 @@ import AntDesign from 'react-native-vector-icons/AntDesign';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import styles from '../styles/login';
 import CustomTextInput from '../components/CustomTextInput';
+import Config from 'react-native-config';
 
 const Login = props => {
   const [email, setEmail] = useState();
   const [password, setPassword] = useState();
   const [isOpen, setIsOpen] = useState(false);
-
+  console.log(Config.ENV);
   const handleLogin = async () => {
     // const res = await dispatch(loginAction({email, password}));
     // if (res.token) {

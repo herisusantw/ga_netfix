@@ -16,106 +16,97 @@ import {IMAGE_URL, API_URL, API_KEY} from '../constant/general';
 import axios from 'axios';
 import {useNavigation} from '@react-navigation/core';
 import CardMovie from '../components/CardMovie';
+import SectionMovie from '../components/SectionMovie';
+import {color} from '../styles/default';
 
 const Home = props => {
   const navigation = useNavigation();
   const [popular, setPopular] = useState([]);
   const [topRated, setTopRated] = useState([]);
+  const [upcoming, setUpcoming] = useState([]);
+  const [searchText, setSearchText] = useState('');
 
   useEffect(() => {
-    getPopularMovie();
-    getTopRatedMovie();
+    // ['top_rated','popular','upcoming'].map(section=>{
+    //   getMovie(section)
+    // })
+    getMovie('top_rated');
+    getMovie('popular');
+    getMovie('upcoming');
   }, []);
 
-  const getPopularMovie = async () => {
-    let url = `${API_URL}/movie/popular?api_key=${API_KEY}&language=en-US&page=1`;
+  const getMovie = async section => {
+    let url = `${API_URL}/movie/${section}?api_key=${API_KEY}&language=en-US&page=1`;
     try {
       const response = await axios.get(url);
-      setPopular(response.data.results);
+      if (section == 'popular') {
+        setPopular(response.data.results);
+      } else if (section == 'top_rated') {
+        setTopRated(response.data.results);
+      } else if (section == 'upcoming') {
+        setUpcoming(response.data.results);
+      }
     } catch (e) {
       console.log('error while get popular movie', e);
     }
   };
 
-  const getTopRatedMovie = async () => {
-    let url = `${API_URL}/movie/top_rated?api_key=${API_KEY}&language=en-US&page=1`;
-    try {
-      const response = await axios.get(url);
-      setTopRated(response.data.results);
-    } catch (e) {
-      console.log('error while get top_rated movie', e);
-    }
-  };
-
-  const renderMovie = ({item}) => {
-    return (
-      <CardMovie
-        movie={item}
-        handleNavigation={() =>
-          navigation.navigate('Detail Movie', {movie: item})
-        }
-      />
-    );
-  };
-
-  const data = [
+  const movies = [
     {
-      section: 'Popular',
-      movie: popular,
+      section: 'Upcoming Movie',
+      data: upcoming,
     },
     {
-      section: 'Top Rated',
-      movie: topRated,
+      section: 'Popular Movie',
+      data: popular,
+    },
+    {
+      section: 'Top Rated Movie',
+      data: topRated,
     },
   ];
 
-  const renderSectionMovie = sectionList => {
-    data.map(datum => (
-      <View>
-        <Text>{datum.section}Movie</Text>
-        <FlatList
-          horizontal={true}
-          data={datum.movie}
-          renderItem={renderMovie}
-          keyExtractor={(item, index) => index}
-        />
-      </View>
-    ));
-  };
-
+  const renderMapPerSection = movies.map((movie, i) => {
+    return (
+      <SectionMovie
+        key={i}
+        title={movie.section}
+        data={
+          searchText == 0
+            ? movie.data
+            : movie.data.filter(mov =>
+                mov.title.toLowerCase().includes(searchText),
+              )
+        }
+        navigation={() => navigation.navigate('Detail Movie')}
+      />
+    );
+  });
   return (
-    <View style={styles.container} horizontal={true}>
-      <View>
-        <Text>Popular Movie</Text>
-        <FlatList
-          horizontal={true}
-          data={popular}
-          renderItem={renderMovie}
-          keyExtractor={(item, index) => index}
-        />
-      </View>
-      <View>
-        <Text>Top Rated Movie</Text>
-        <FlatList
-          horizontal={true}
-          data={topRated}
-          renderItem={renderMovie}
-          keyExtractor={(item, index) => index}
-        />
-      </View>
+    <View
+      style={{
+        justifyContent: 'flex-start',
+        width: '100%',
+        backgroundColor: color.black,
+        flex: 1,
+        padding: 15,
+        paddingHorizontal: 20,
+        height: 180,
+      }}>
+      <TextInput
+        placeholder="Search movie by title"
+        value={searchText}
+        onChangeText={text => setSearchText(text)}
+        style={{
+          height: 50,
+          backgroundColor: '#FFF',
+          borderRadius: 5,
+          padding: 5,
+        }}
+      />
+      {renderMapPerSection}
     </View>
   );
 };
-
-const styles = StyleSheet.create({
-  container: {
-    // flex: 1,
-    padding: 10,
-    backgroundColor: 'white',
-    // flexDirection: 'row',
-    // marginHorizontal: 5,
-    // flexWrap: 'wrap',
-  },
-});
 
 export default Home;
