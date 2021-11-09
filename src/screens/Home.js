@@ -12,12 +12,12 @@ import {
   ScrollView,
   TouchableOpacity,
 } from 'react-native';
-import {IMAGE_URL, API_URL, API_KEY} from '../constant/general';
 import axios from 'axios';
 import {useNavigation} from '@react-navigation/core';
 import CardMovie from '../components/CardMovie';
 import SectionMovie from '../components/SectionMovie';
 import {color} from '../styles/default';
+import Config from 'react-native-config';
 
 const Home = props => {
   const navigation = useNavigation();
@@ -27,16 +27,13 @@ const Home = props => {
   const [searchText, setSearchText] = useState('');
 
   useEffect(() => {
-    // ['top_rated','popular','upcoming'].map(section=>{
-    //   getMovie(section)
-    // })
     getMovie('top_rated');
     getMovie('popular');
     getMovie('upcoming');
   }, []);
 
   const getMovie = async section => {
-    let url = `${API_URL}/movie/${section}?api_key=${API_KEY}&language=en-US&page=1`;
+    let url = `/movie/${section}?api_key=${Config.API_KEY}&language=en-US&page=1`;
     try {
       const response = await axios.get(url);
       if (section == 'popular') {
